@@ -8,3 +8,4 @@ IPアドレス(どこに接続するか)，ポート(どの道を通って接続
 　git add (url) 　 →　git pull origin main  
 4．envファイル等々をFTPで送信する。  
 5．必要であれば権限の変更  
+ chmod -R 777 フォルダ名
