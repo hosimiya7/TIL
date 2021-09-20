@@ -12,8 +12,6 @@
 大まかにいうと上記のような流れ。  
 以下に詳細を記していく。  
 
-
-
 ### 1．サーバーに接続する。
 ssh接続。  
 IPアドレス(どこに接続するか。)  
@@ -44,18 +42,20 @@ envファイルをFTPで送信する
 ### 6．DB関係の設定
  
 リモートのDBにmigrateする  
-キャッシュの削除  
-*php artisan cache:clear  
-*php artisan config:clear  
-*php artisan route:clear  
-
+  
 コマンドでDBを使う場合…
 
 接続```mysql -u root```  
 新規作成```create datebase ("name")```
 
 ### 7. その他
-ping ドメイン(ドメインが動いているかの確認)  
+
+キャッシュの削除(laravelは残りやすいから削除すべし)  
+```php artisan cache:clear```  
+```php artisan config:clear```  
+```php artisan route:clear```
+
+ping ドメイン(ドメインが生きているかの確認)  
 ls -la(ファイルフォルダ一括参照。隠しファイルも見れる)
 
 ## サブディレクトリをホームディレクトリにする場合。
