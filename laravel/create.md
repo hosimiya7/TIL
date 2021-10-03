@@ -12,12 +12,14 @@
 バージョン指定しないとうまくいかない。  
 ```npm install```  
 ```npm run dev```  
-```php artisan ui vue```
+```php artisan ui vue```  
+再度```npm install```
+
+SPAを作るなら
+```npm install --save vue-router```
 
 ### jsのパッケージをpackage.jsonに記入
 ex:  
-"vue": "^2.5.17",  
-   "vue-template-compiler": "^2.6.10"  
    "jquery": "^3.2",  
 
 ### jsを出力
