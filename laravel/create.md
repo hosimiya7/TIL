@@ -6,3 +6,13 @@
 
 ### 起動  
 ```php artisan serve```
+
+### jsを出力
+```npm install```  
+package.jsonに書かれたものがインストールされる  
+
+### jsコンパイル
+```npm run dev```  
+走らせるとコンパイルされる  
+```npm run watch```  
+変更があると自動でコンパイルされる
