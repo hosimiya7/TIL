@@ -5,7 +5,14 @@
 この場合 version 6 の最新が入る(最後の部分でバージョン管理)  
 
 ### 起動  
-```php artisan serve```　　
+```php artisan serve```　
+
+### vueを入れるなら…
+```$ composer require laravel/ui 1.*```  
+バージョン指定しないとうまくいかない。  
+```npm install```  
+```npm run dev```  
+```php artisan ui vue```
 
 ### jsのパッケージをpackage.jsonに記入
 ex:  
