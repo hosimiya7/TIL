@@ -36,8 +36,16 @@ keyの設定
 #### ssh鍵の作り方(リポジトリ毎)  
 ```ssh-keygen -t rsa -b 4096 -C "メールアドレス"```  
 作った公開鍵(.pub)をgithubに渡す  
-できた鍵はサーバーの~/.sshに渡す  
-~/.ssh/configを追加
+できた鍵はサーバーの~/.sshに渡す 
+
+```
+Host github github.com  
+  HostName github.com  
+  IdentityFile ~/.ssh/(password)  
+  User git
+```  
+~/.ssh/configを追加  
+
 githubとの接続ができているか確認  
 ```ssh -T git@github.com```
 
