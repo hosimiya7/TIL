@@ -36,8 +36,7 @@ keyの設定
 #### ssh鍵の作り方(リポジトリ毎)  
 ```ssh-keygen -t rsa -b 4096 -C "メールアドレス"```  
 作った公開鍵(.pub)をgithubに渡す  
-できた鍵はサーバーの~/.sshに渡す 
-
+できた鍵はサーバーの~/.sshに渡す  
 ```
 Host github github.com  
   HostName github.com  
@@ -48,6 +47,8 @@ Host github github.com
 
 githubとの接続ができているか確認  
 ```ssh -T git@github.com```
+
+[gitのssh接続](https://qiita.com/GakuNaitou/items/81dbbd3ea6211af71648)
 
  
 ### 4．envファイルの書き換える  
