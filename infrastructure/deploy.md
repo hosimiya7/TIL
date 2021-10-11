@@ -22,7 +22,7 @@ keyの設定
 ※ポート番号やユーザー名はセキュリティのためにデフォルトから変更することがしばしば。
 
 ### 2．サーバー側の環境構築をする。   
- laravelのインストール(comporser install)  
+ laravelのインストール(composer install)  
  [node.jsのインストール](https://qiita.com/daskepon/items/16a77868d38f8e585840)
  ※node.jsのバージョンに注意。今回は14  
  npm install  
