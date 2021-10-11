@@ -38,7 +38,7 @@ keyの設定
 作った公開鍵(.pub)をgithubに渡す  
 できた鍵はサーバーの~/.sshに渡す  
 ~/.ssh/configを追加
-githubとの接続ができているか確認
+githubとの接続ができているか確認  
 ```ssh -T git@github.com```
 
  
