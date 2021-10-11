@@ -33,9 +33,13 @@ keyの設定
  git init　  →　git remote add origin (url) 　 →　git pull origin main  
 (url)はsshのものを取る。
 
-※ssh鍵の作り方(リポジトリ毎)
+#### ssh鍵の作り方(リポジトリ毎)  
 ```ssh-keygen -t rsa -b 4096 -C "メールアドレス"```  
-作った公開鍵(.pub)をgithubに渡す
+作った公開鍵(.pub)をgithubに渡す  
+できた鍵はサーバーの~/.sshに渡す  
+~/.ssh/configを追加
+githubとの接続ができているか確認
+```ssh -T git@github.com```
 
  
 ### 4．envファイルの書き換える  
@@ -43,6 +47,8 @@ envファイルをFTPで送信する
 .envのDBの設定を書き換える。
 
 ### 5．必要であれば権限の変更  
+`ls -la(list all)`  
+すべての情報が見れる(権限確認)  
  chmod -R 777 フォルダ名(今回はlaravelのlogファイル)
  
 ### 6．DB関係の設定
@@ -63,6 +69,7 @@ envファイルをFTPで送信する
 
 ping ドメイン(ドメインが生きているかの確認)  
 ls -la(ファイルフォルダ一括参照。隠しファイルも見れる)
+-R ディレクトリ以下全部変える
 
 ## サブディレクトリをホームディレクトリにする場合。
 
