@@ -31,6 +31,12 @@ keyの設定
 ### 3．サーバーにローカルのフォルダを載せる(git経由)  
  [gitインストール](https://qiita.com/tomy0610/items/66e292f80aa1adc1161d)  
  git init　  →　git remote add origin (url) 　 →　git pull origin main  
+(url)はsshのものを取る。
+
+※ssh鍵の作り方(リポジトリ毎)
+```ssh-keygen -t rsa -b 4096 -C "メールアドレス"```  
+作った公開鍵(.pub)をgithubに渡す
+
  
 ### 4．envファイルの書き換える  
 envファイルをFTPで送信する
