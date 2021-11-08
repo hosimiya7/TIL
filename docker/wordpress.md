@@ -3,10 +3,10 @@
 https://kahoo.blog/howto-wsl2-docker-install/
 ## dockerhub
 https://hub.docker.com/
-## wordpress
+## wordpress環境構築
 https://53ningen.com/docker-wordpress/
 
-## dockerfile/docker-composeの作成
+## dockerfile/docker-composeの作成(ex.wordpress環境構築)
 
 ### サーバー
 
@@ -76,17 +76,21 @@ services:
 
 version: dockerのバージョン  
 build: どこのdockerfileを参照する  
-volumes: localの場所:リモートの場所
-environment: 環境変数の設定(.envに記載)
-depends_on: 記載されたものの後に立ち上がる
+volumes: localの場所:リモートの場所  
+environment: 環境変数の設定(.envに記載)  
+depends_on: 記載されたものの後に立ち上がる  
 restart: コンテナを自動的に起動する
 
 ## コマンド
-docker compose
-ps プロセス(現在起動しているものを確認)
-build (構築)
-up
-up --build
-down
+docker-compose  
+ps プロセス(現在起動しているものを確認)  
+build (構築)  
+up (走らせる)  
+up --build(構築して走らせる)  
+down(止める)  
 
 https://qiita.com/tanakin_prog/items/6e6219a62e7a05eb22c2
+
+## その他
+.envを作成。(環境変数)  
+nginx.confを作成。
