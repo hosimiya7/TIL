@@ -25,3 +25,12 @@ FROM (名前):(タグ…バージョン)
 FROM mysql:5.7
 FROM nginx
 FROM wordpress
+
+
+## コマンド
+docker compose
+ps プロセス(現在起動しているものを確認)
+build (構築)
+up
+up --build
+down
