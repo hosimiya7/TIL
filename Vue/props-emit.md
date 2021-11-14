@@ -72,6 +72,57 @@ export default {
 ```
 
 ### 子から親へのデータ渡し
+#### 子
+親へ $emit を使ってデータを渡す。
+```
+<template>
+    <div>
+        <button @click="$emit('panretMessage')">message</button>
+    </div>
+</template>
+
+```
+
+#### 親
+子から送られたデータをv-onで受け取る。
+```
+<template>
+    <div>
+        <child v-on:panretMessage="messageLog"></child>
+    </div>
+</template>
+<script>
+import Child from './child.vue';
+export default {
+    components: {
+        Child
+    },
+    methods: {
+        messageLog() {
+            console.log("parent");
+        }
+    }
+}
+</script>
+```
+
+## そしてエラー…
+```Avoid mutating a prop directly```
+こんなエラーを吐きました。内容としては親から送られてきたデータは子では編集できないよっていう感じ。
+子の側でもデータの更新をする場合があるので親子両方でデータの更新ができる状態にしたかった。
+というわけで再び検索…。
+
+### syncを使う
+syncは親から受け取ったデータを、propsで定義した変数のみで変更する方法。
+
+親から子へ送る際に`<子コンポーネント名 :属性名.sync="変数名" />`にする
+
+#### 親
+```
+<SyncChiled :message.sync="msg" />
+```
 
 ### 参照先
 [Vue.js における Component 間のデータの受け渡しまとめ](https://qiita.com/att55/items/91b683c68b5057eaac51)
+[Vue.jsでコンポーネント親子間の値の受け渡し](https://qiita.com/y_sasaki/items/5bbed5439fcfef9f8c40)
+[【Vue】Avoid mutating a prop directlyエラーの発生原因と対処法](https://qiita.com/shizen-shin/items/ec05071140b9d5d7d31a)
