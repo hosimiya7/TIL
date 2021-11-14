@@ -106,6 +106,9 @@ export default {
 </script>
 ```
 
+[Vue.js における Component 間のデータの受け渡しまとめ](https://qiita.com/att55/items/91b683c68b5057eaac51)
+[Vue.jsでコンポーネント親子間の値の受け渡し](https://qiita.com/y_sasaki/items/5bbed5439fcfef9f8c40)
+
 ## そしてエラー…
 ```Avoid mutating a prop directly```
 こんなエラーを吐きました。内容としては親から送られてきたデータは子では編集できないよっていう感じ。
@@ -115,14 +118,70 @@ export default {
 ### syncを使う
 syncは親から受け取ったデータを、propsで定義した変数のみで変更する方法。
 
-親から子へ送る際に`<子コンポーネント名 :属性名.sync="変数名" />`にする
-
 #### 親
+親から子へ送る際に`<子コンポーネント名 :属性名.sync="変数名" />`にする
 ```
 <SyncChiled :message.sync="msg" />
 ```
 
-### 参照先
-[Vue.js における Component 間のデータの受け渡しまとめ](https://qiita.com/att55/items/91b683c68b5057eaac51)
-[Vue.jsでコンポーネント親子間の値の受け渡し](https://qiita.com/y_sasaki/items/5bbed5439fcfef9f8c40)
+#### 子
+(1)propsでデータを受け取り、(2)valueでデータを表示し、(3)inputイベントで変更後の値を戻す
+```
+<input type="text" :value="message" @input="$emit('update:message', $event.target.value)">
+```
+
+これでうまくいくのかと試してみた。結果、親にデータが送られなかった。
+データ更新したいのはinputで入力された値ではなく、とあるdiv要素でスペースが押されたら…だったのが問題…？
+input要素など、直接入力された数値じゃないとうまくいかないのか…？(未検証)
+
 [【Vue】Avoid mutating a prop directlyエラーの発生原因と対処法](https://qiita.com/shizen-shin/items/ec05071140b9d5d7d31a)
+
+## 解決方法
+
+### 発火イベントを子から親に送る
+
+```this.$emit("変数名", データ)```で子から親にデータが変更されたことを伝える。
+変更されたデータの内容を第2引数に入れる。
+
+親はv-onで受け取る。
+
+#### 子
+```
+  postData() {
+      if (
+        this.$store.state.selectedMainCursor === this.mainCursor.GOAL &&
+        this.$store.state.selectedSubCursor === this.subCursor.INDENT4
+      ) {
+        const postData = {
+          goal: document.getElementById("goal").value,
+          number: document.getElementById("number").value,
+          unit: document.getElementById("unit").value
+        };
+        window.axios
+          .post("api/goal/create", postData)
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+    // ここでデータを親へ送る 
+        this.$emit("postData", postData);
+      }
+    },
+```
+
+#### 親
+```
+// v-onでデータを受け取り、定義しているイベントハンドラ("reflectGoal")が発火。引数にデータが入る。
+<Commands v-on:postData="reflectGoal"></Commands>
+```
+
+```
+ methods: {
+    reflectGoal(goal) {
+      this.goal = goal.goal;
+      this.number = Number(goal.number);
+      this.unit = goal.unit;
+    }
+```
