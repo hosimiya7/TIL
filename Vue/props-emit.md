@@ -73,7 +73,7 @@ export default {
 
 ### 子から親へのデータ渡し
 #### 子
-親へ $emit を使ってデータを渡す。
+親へ $emit を使ってデータを渡す。  
 ```
 <template>
     <div>
@@ -84,7 +84,7 @@ export default {
 ```
 
 #### 親
-子から送られたデータをv-onで受け取る。
+子から送られたデータをv-onで受け取る。  
 ```
 <template>
     <div>
@@ -106,44 +106,44 @@ export default {
 </script>
 ```
 
-[Vue.js における Component 間のデータの受け渡しまとめ](https://qiita.com/att55/items/91b683c68b5057eaac51)
-[Vue.jsでコンポーネント親子間の値の受け渡し](https://qiita.com/y_sasaki/items/5bbed5439fcfef9f8c40)
+[Vue.js における Component 間のデータの受け渡しまとめ](https://qiita.com/att55/items/91b683c68b5057eaac51)  
+[Vue.jsでコンポーネント親子間の値の受け渡し](https://qiita.com/y_sasaki/items/5bbed5439fcfef9f8c40)  
 
 ## そしてエラー…
-```Avoid mutating a prop directly```
-こんなエラーを吐きました。内容としては親から送られてきたデータは子では編集できないよっていう感じ。
-子の側でもデータの更新をする場合があるので親子両方でデータの更新ができる状態にしたかった。
-というわけで再び検索…。
+```Avoid mutating a prop directly```  
+こんなエラーを吐きました。内容としては親から送られてきたデータは子では編集できないよっていう感じ。  
+子の側でもデータの更新をする場合があるので親子両方でデータの更新ができる状態にしたかった。  
+というわけで再び検索…。  
 
 ### syncを使う
-syncは親から受け取ったデータを、propsで定義した変数のみで変更する方法。
+syncは親から受け取ったデータを、propsで定義した変数のみで変更する方法。  
 
 #### 親
-親から子へ送る際に`<子コンポーネント名 :属性名.sync="変数名" />`にする
+親から子へ送る際に`<子コンポーネント名 :属性名.sync="変数名" />`にする  
 ```
 <SyncChiled :message.sync="msg" />
 ```
 
 #### 子
-(1)propsでデータを受け取り、(2)valueでデータを表示し、(3)inputイベントで変更後の値を戻す
+(1)propsでデータを受け取り、(2)valueでデータを表示し、(3)inputイベントで変更後の値を戻す  
 ```
 <input type="text" :value="message" @input="$emit('update:message', $event.target.value)">
 ```
 
-これでうまくいくのかと試してみた。結果、親にデータが送られなかった。
-データ更新したいのはinputで入力された値ではなく、とあるdiv要素でスペースが押されたら…だったのが問題…？
-input要素など、直接入力された数値じゃないとうまくいかないのか…？(未検証)
+これでうまくいくのかと試してみた。結果、親にデータが送られなかった。  
+データ更新したいのはinputで入力された値ではなく、とあるdiv要素でスペースが押されたら…だったのが問題…？  
+input要素など、直接入力された数値じゃないとうまくいかないのか…？(未検証)  
 
-[【Vue】Avoid mutating a prop directlyエラーの発生原因と対処法](https://qiita.com/shizen-shin/items/ec05071140b9d5d7d31a)
+[【Vue】Avoid mutating a prop directlyエラーの発生原因と対処法](https://qiita.com/shizen-shin/items/ec05071140b9d5d7d31a)  
 
 ## 解決方法
 
 ### 発火イベントを子から親に送る
 
-```this.$emit("変数名", データ)```で子から親にデータが変更されたことを伝える。
-変更されたデータの内容を第2引数に入れる。
+```this.$emit("変数名", データ)```で子から親にデータが変更されたことを伝える。  
+変更されたデータの内容を第2引数に入れる。  
 
-親はv-onで受け取る。
+親はv-onで受け取る。  
 
 #### 子
 ```
