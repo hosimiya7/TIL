@@ -9,7 +9,7 @@ https://53ningen.com/docker-wordpress/
 ## dockerfile/docker-composeの作成(ex.wordpress環境構築)
 
 ### サーバー
-
+* フロント(今回はなし)
 * アプリケーションサーバー(wordpress)  
 * webサーバー(nginx)  
 * DBサーバー(mysql)  
