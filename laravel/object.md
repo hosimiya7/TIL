@@ -59,6 +59,33 @@ class ClubController extends Controller
 
 ```
 
+```
+class Club extends Model
+{
+    use HasFactory;
+    // 定数定義
+    const INSUFFICIENT = 0;
+    const UNAPPROVED = 1;
+    const APPROVED = 2;
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'members');
+    }
+
+    public function isInsufficient()
+    {
+        // tureだったら
+        self::INSUFFICIENT === $this->approval;
+    }
+
+    public function isApproved()
+    {
+    }
+}
+
+```
+
 **インスタンス化せずにクラスから直接変数関数が呼び出せるが、インスタンス化した場合との違いが良くわからない。  
 クラスメソッド・クラスプロパティのメリット・デメリットは？  
 ここでいう静的って何だろう。値が確実に変わらないこと？**  
