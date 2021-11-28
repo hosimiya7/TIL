@@ -61,6 +61,7 @@ class ClubController extends Controller
 ```
 
 ```
+// これは後々…。
 class Club extends Model
 {
     use HasFactory;
