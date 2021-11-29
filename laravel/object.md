@@ -101,12 +101,7 @@ class Club extends Model
     const INSUFFICIENT = 0;
     const UNAPPROVED = 1;
     const APPROVED = 2;
-
-    public function students()
-    {
-        return $this->belongsToMany(Student::class, 'members');
-    }
-
+    
     public function isInsufficient()
     {
         // self::INSUFFICIENT 定数を自身から呼び出している
@@ -114,9 +109,6 @@ class Club extends Model
         self::INSUFFICIENT === $this->approval;
     }
 
-    public function isApproved()
-    {
-    }
 }
 
 ```
@@ -124,22 +116,78 @@ class Club extends Model
 blade
 ```
 <li>{{ $club->name }}
-                <span>
-                    {{-- @if ($club->approval === App\Models\Club::INSUFFICIENT) --}}
-                    @if (App\Models\Club::isInsufficient())
-                        人数不足
-                    @elseif($club->approval === App\Models\Club::UNAPPROVED)
-                        未承認
-                        <form method="POST" action="{{ route('club.approval') }}">
-                            @csrf
-                            <input type="hidden" name="club_id" value="{{ $club->id }}">
-                            <input type="submit" value="承認する">
-                        </form>
-                    @elseif($club->approval === App\Models\Club::APPROVED)
-                        承認済み
-                    @endif
-                </span>
-            </li>
+    <span>
+        {{-- @if ($club->approval === App\Models\Club::INSUFFICIENT) --}}
+        @if (App\Models\Club::isInsufficient())
+            人数不足
+        @elseif($club->approval === App\Models\Club::UNAPPROVED)
+            未承認
+            <form method="POST" action="{{ route('club.approval') }}">
+                @csrf
+                <input type="hidden" name="club_id" value="{{ $club->id }}">
+                <input type="submit" value="承認する">
+            </form>
+        @elseif($club->approval === App\Models\Club::APPROVED)
+            承認済み
+        @endif
+    </span>
+</li>
 ```
 
-bladeでインスタンス化する…？
+~~bladeでインスタンス化する…？~~  
+Club::allで持ってきたデータはcollectionオブジェクトになるので、controller経由だとオブジェクトが持ってこれる。
+なんかserviceってやつもあるらしい…(よくわかってない)
+
+model(正しいやつ)
+
+```
+class Club extends Model
+{
+    use HasFactory;
+
+    const INSUFFICIENT = 0;
+    const UNAPPROVED = 1;
+    const APPROVED = 2;
+    
+    public function isInsufficient()
+    {
+        return $this->approval === self::INSUFFICIENT;
+    }
+}
+```
+blade
+```
+<li>{{ $club->name }}
+    <span>
+        {{-- @if ($club->approval === App\Models\Club::INSUFFICIENT) --}}
+<!-- clubはコントローラー経由で持ってきたオブジェクト -->
+        @if ($club->isInsufficient())
+            人数不足
+        @elseif($club->approval === App\Models\Club::UNAPPROVED)
+            未承認
+            <form method="POST" action="{{ route('club.approval') }}">
+                @csrf
+                <input type="hidden" name="club_id" value="{{ $club->id }}">
+                <input type="submit" value="承認する">
+            </form>
+        @elseif($club->approval === App\Models\Club::APPROVED)
+            承認済み
+        @endif
+    </span>
+</li>
+```
+
+controller
+```
+class StudentController extends Controller
+{
+    public function show()
+    {
+        $students = Student::all();
+        // $clubはcollectionオブジェクトになる
+        $clubs = Club::all();
+        return view('welcome', ['students' => $students, 'clubs' => $clubs]);
+    }
+}
+
+```
