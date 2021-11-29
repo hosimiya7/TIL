@@ -1,10 +1,10 @@
 # オブジェクト指向について
-ソフトウェア開発とコンピュータプログラミングのために用いられる考え方。
+ソフトウェア開発とコンピュータプログラミングのために用いられる考え方。  
 まだあやふやだけど自分のわかっていることをまとめる。
 
 ## 用語
 ### クラス  
-設計図に例えられる。
+設計図に例えられる。  
 たくさんの変数や関数が書かれている。
 
 ### インスタンス化 
@@ -88,6 +88,9 @@ $mainCursor->isKeyDown()
 
 ### selfとthis
 
+selfはクラス自身  
+thisはインスタンス化したもの自身
+
 model(だめなやつ)
 ```
 // Error
@@ -160,7 +163,7 @@ blade
 <li>{{ $club->name }}
     <span>
         {{-- @if ($club->approval === App\Models\Club::INSUFFICIENT) --}}
-<!-- clubはコントローラー経由で持ってきたオブジェクト -->
+    <!-- clubはコントローラー経由で持ってきたオブジェクト -->
         @if ($club->isInsufficient())
             人数不足
         @elseif($club->approval === App\Models\Club::UNAPPROVED)
@@ -190,4 +193,32 @@ class StudentController extends Controller
     }
 }
 
+```
+
+## laravelのクラス・オブジェクト
+laravelに既に存在しているクラスたち
+
+### controllerクラス
+controllerの継承元
+
+### builderクラス
+実行前のクラス。いったい何が含まれているのか…？？
+```
+// getしてない状態
+$club = Club::find($request->club_id);
+```
+
+### Eloquentクラス
+modelの継承元
+関数にDBからデータを取得したり、DBにデータを渡したりするものがある。
+* save()
+* get()
+* insert()
+
+### collectionオブジェクト
+DBからデータを取得した時点でcollectionオブジェクトになる。
+何かからインスタンス化されたデータの入ったオブジェクト…。
+何かってなんだ！
+```
+Member::where('club_id', $club->id)->get()
 ```
