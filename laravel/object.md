@@ -201,27 +201,40 @@ laravelに既に存在しているクラスたち
 ### controllerクラス
 controllerの継承元
 
-### builderクラス
-実行前のクラス。いったい何が含まれているのか…？？
+### Eloquent(仕組み)
+modelの設計概念  
+#### builderクラス
+実行前のクラス。  
+データの順序や選択。  
+SQLを組み立てる。
 ```
 // getしてない状態
-$club = Club::find($request->club_id);
+$club = Club::where('student_id', $request->student_id);
 ```
+* where
+* orderBy
 
-### Eloquentクラス
-modelの継承元  
+#### modelクラス
 関数にDBからデータを取得したり、DBにデータを渡したりするものがある。
 * save()
 * get()
 * insert()
+* delete()
 
 ### collectionオブジェクト
 DBからデータを取得した時点でcollectionオブジェクトになる。  
-何かのクラスからインスタンス化されたデータの入ったオブジェクト…。  
-何かってなんだ！  
+modelクラスからインスタンス化されたデータの入ったオブジェクト…。   
 ```
 Member::where('club_id', $club->id)->get()
 ```
 
 ## これからまとめたいもの
 ### static
+### abstract
+### trait
+継承実装できないクラスみたいなもの。
+クラス内に記載して使える関数・変数のまとまり。
+### implements
+interfaceの実装
+書かれている名前の関数がないとエラーが出る。
+実装漏れを防ぐために存在している。
