@@ -8,9 +8,9 @@
 たくさんの変数や関数が書かれている。
 
 ### インスタンス化 
-クラスを使える状態にしたもの。
-これにより、複製が可能になる。
-クラス内で定義した変数にあとから値を代入できるようになる。
+クラスを使える状態にしたもの。  
+これにより、複製が可能になる。  
+クラス内で定義した変数にあとから値を代入できるようになる。  
 
 ```
 // インスタンス化したものが、this.mainCursor(オブジェクト変数)の中に入っている。
@@ -75,6 +75,16 @@ class ClubController extends Controller
 ```
 Club::insert(['name' => $name]);
 ```
+
+#### static
+変数や関数にstaticをつけることで、「静的プロパティ」「静的メソッド」ができる。
+```
+// 静的プロパティになるので、クラスから直接呼び出せる。
+public static $stNum = 0;
+```
+
+？　laravelだとstaticの指定をしていなくても、クラスから定数、関数を呼び出せた。
+    staticの場合は、変数も呼び出せる…？
 
 ### インスタンスメソッド
 インスタンス化したものから呼び出す＝再代入可
@@ -221,20 +231,43 @@ $club = Club::where('student_id', $request->student_id);
 * insert()
 * delete()
 
-### collectionオブジェクト
+#### collectionオブジェクト
 DBからデータを取得した時点でcollectionオブジェクトになる。  
 modelクラスからインスタンス化されたデータの入ったオブジェクト…。   
 ```
 Member::where('club_id', $club->id)->get()
 ```
 
-## これからまとめたいもの
-### static
+## その他
+
 ### abstract
+継承専用のクラス。インスタンス化はできない。
+
+
 ### trait
 継承実装できないクラスみたいなもの。
 クラス内に記載して使える関数・変数のまとまり。
+いろんなクラスにuseすることで使うことができる。
+
+```
+class Controller extends BaseController
+{
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+}
+```
+
 ### implements
-interfaceの実装
-書かれている名前の関数がないとエラーが出る。
-実装漏れを防ぐために存在している。
+interfaceの実装  
+書かれている名前の関数がないとエラーが出る。  
+実装漏れを防ぐために存在している。  
+```
+// 継承専用のmodelクラス。
+// Arrayable, ArrayAccess...などのinterfaceを実装することで、書かれている関数を必ずmodelクラスに書かないとエラーになる。
+abstract class Model implements Arrayable, ArrayAccess, CanBeEscapedWhenCastToString, HasBroadcastChannel, Jsonable, JsonSerializable, QueueableEntity, UrlRoutable
+{
+    ... 
+```
+
+### 可変長引数
+…  
+長さが決まってないときに使う…？
