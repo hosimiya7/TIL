@@ -60,34 +60,6 @@ class ClubController extends Controller
 
 ```
 
-```
-// これは後々…。
-class Club extends Model
-{
-    use HasFactory;
-    // 定数定義
-    const INSUFFICIENT = 0;
-    const UNAPPROVED = 1;
-    const APPROVED = 2;
-
-    public function students()
-    {
-        return $this->belongsToMany(Student::class, 'members');
-    }
-
-    public function isInsufficient()
-    {
-        // tureだったら
-        self::INSUFFICIENT === $this->approval;
-    }
-
-    public function isApproved()
-    {
-    }
-}
-
-```
-
 ~~インスタンス化せずにクラスから直接変数関数が呼び出せるが、インスタンス化した場合との違いが良くわからない。  
 クラスメソッド・クラスプロパティのメリット・デメリットは？  
 ここでいう静的って何だろう。値が確実に変わらないこと？~~
@@ -113,3 +85,61 @@ $mainCursor = new MainCursor();
 // mainCursorのインスタンスに書かれた関数isKeyDownを呼び出して実行する
 $mainCursor->isKeyDown()
 ```
+
+### selfとthis
+
+model(だめなやつ)
+```
+// Error
+// Using $this when not in object contextがでる
+// インスタンス化してないので$thisは呼び出せない(？)
+
+class Club extends Model
+{
+    use HasFactory;
+    // 定数定義
+    const INSUFFICIENT = 0;
+    const UNAPPROVED = 1;
+    const APPROVED = 2;
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'members');
+    }
+
+    public function isInsufficient()
+    {
+        // self::INSUFFICIENT 定数を自身から呼び出している
+        // $thisは「このインスタンスの」の意味だけど、Clubclassはbladeでインスタンス化してないのでデータがない
+        self::INSUFFICIENT === $this->approval;
+    }
+
+    public function isApproved()
+    {
+    }
+}
+
+```
+
+blade
+```
+<li>{{ $club->name }}
+                <span>
+                    {{-- @if ($club->approval === App\Models\Club::INSUFFICIENT) --}}
+                    @if (App\Models\Club::isInsufficient())
+                        人数不足
+                    @elseif($club->approval === App\Models\Club::UNAPPROVED)
+                        未承認
+                        <form method="POST" action="{{ route('club.approval') }}">
+                            @csrf
+                            <input type="hidden" name="club_id" value="{{ $club->id }}">
+                            <input type="submit" value="承認する">
+                        </form>
+                    @elseif($club->approval === App\Models\Club::APPROVED)
+                        承認済み
+                    @endif
+                </span>
+            </li>
+```
+
+bladeでインスタンス化する…？
