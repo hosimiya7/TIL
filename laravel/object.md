@@ -209,16 +209,16 @@ $club = Club::find($request->club_id);
 ```
 
 ### Eloquentクラス
-modelの継承元
+modelの継承元  
 関数にDBからデータを取得したり、DBにデータを渡したりするものがある。
 * save()
 * get()
 * insert()
 
 ### collectionオブジェクト
-DBからデータを取得した時点でcollectionオブジェクトになる。
-何かからインスタンス化されたデータの入ったオブジェクト…。
-何かってなんだ！
+DBからデータを取得した時点でcollectionオブジェクトになる。  
+何かからインスタンス化されたデータの入ったオブジェクト…。  
+何かってなんだ！  
 ```
 Member::where('club_id', $club->id)->get()
 ```
