@@ -222,3 +222,6 @@ DBからデータを取得した時点でcollectionオブジェクトになる�
 ```
 Member::where('club_id', $club->id)->get()
 ```
+
+## これからまとめたいもの
+### static
