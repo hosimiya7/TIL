@@ -80,7 +80,7 @@ Club::insert(['name' => $name]);
 変数や関数にstaticをつけることで、~~「静的プロパティ」~~(ほぼ使わない)　「静的メソッド」ができる。
 ```
 // 静的メソッドになるので、クラスから直接(クラス名::メソッド名で)呼び出せる。
-public static function 変数名()
+public static function 関数名()
   {
      関数～～～
   }
