@@ -9,7 +9,7 @@ docker-compose up -d --build
 ```
 ERROR: for db  Cannot start service db: Ports are not available: listen tcp 0.0.0.0:3306: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.
 ```
-訳すと「サービスが始まらないよ。3306ポートが使えない。各ソケットアドレス（プロトコル/ネットワークアドレス/ポート）は、一つだけしか使えない」
+訳すと「サービスが始まらないよ。3306ポートが使えない。各ソケットアドレス（プロトコル/ネットワークアドレス/ポート）は、一つだけしか使えない」  
 3306ポートが何かと被ってるっぽい。
 
 ### 解消したい…
@@ -37,9 +37,9 @@ netstat -ano | findstr ":3306"
 アクティブな TCP 接続の表示、ただし名前を決定する試行が行われません。
 
 ##### netstat -o
-アクティブな TCP 接続が表示され、接続ごとにプロセス ID (PID) が含まれています。 
-Windows タスク マネージャーで [プロセス] タブには、PID に基づくアプリケーションが表示されます。 
-このパラメーターと組み合わせることができます -a, 、-n, 、および -pします。
+アクティブな TCP 接続が表示され、接続ごとにプロセス ID (PID) が含まれています。   
+Windows タスク マネージャーで [プロセス] タブには、PID に基づくアプリケーションが表示されます。  
+このパラメーターと組み合わせることができます -a, 、-n, 、および -pします。  
 
 ##### netstat -an | findstr ":ポート番号 "
 ポート番号を指定するコマンド。
