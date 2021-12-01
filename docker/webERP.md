@@ -22,6 +22,7 @@ docker-compose down
 ```
 netstat -ano | findstr ":3306"
 ```
+
 #### コード内容 
 ##### netstat
 アクティブな TCP 接続をコンピューターがリッスンしている、  
@@ -42,3 +43,33 @@ Windows タスク マネージャーで [プロセス] タブには、PID に基
 
 ##### netstat -an | findstr ":ポート番号 "
 ポート番号を指定するコマンド。
+
+返答
+```
+  TCP         0.0.0.0:3306           0.0.0.0:0              LISTENING       6688
+  TCP         0.0.0.0:33060          0.0.0.0:0              LISTENING       6688
+  TCP         [::]:3306              [::]:0                 LISTENING       6688
+  TCP         [::]:33060             [::]:0                 LISTENING       6688
+```
+6688のプロセスが怪しい
+```
+tasklist /FI "PID eq 6688"
+```
+tasklistはwindows系のコマンド  
+コマンドプロンプトで実行
+
+返答
+```
+イメージ名                     PID セッション名     セッション# メモリ使用量
+========================= ======== ================ =========== ============
+mysqld.exe                    6688 Services                   0     44,772 K
+```
+
+mysqld.exeが悪さしてるぽいけど、これなんだ…？
+[mysqld.exe](https://www.processlibrary.com/ja/directory/files/mysqld/402544/)
+MySQLを使ってたらデータが溜まる的な感じかな？
+システムプロセスではないプロセス…。
+
+タスクマネージャーからタスクを止めます。
+
+いけた…！？
