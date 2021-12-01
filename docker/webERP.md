@@ -65,10 +65,10 @@ tasklistはwindows系のコマンド
 mysqld.exe                    6688 Services                   0     44,772 K
 ```
 
-mysqld.exeが悪さしてるぽいけど、これなんだ…？
-[mysqld.exe](https://www.processlibrary.com/ja/directory/files/mysqld/402544/)
-MySQLを使ってたらデータが溜まる的な感じかな？
-システムプロセスではないプロセス…。
+mysqld.exeが悪さしてるぽいけど、これなんだ…？  
+[mysqld.exe](https://www.processlibrary.com/ja/directory/files/mysqld/402544/)  
+MySQLを使ってたらデータが溜まる的な感じかな？  
+システムプロセスではないプロセス…。  
 
 タスクマネージャーからタスクを止めます。
 
