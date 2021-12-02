@@ -166,3 +166,5 @@ dockerのコンテナ内
 * dockerをwslに寄せる  
 * wslをdockerに寄せる  
 * 一般userでも使えるようにする…？  
+
+https://qiita.com/Spritaro/items/602118d946a4383bd2bb
