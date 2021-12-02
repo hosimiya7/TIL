@@ -113,3 +113,31 @@ ERROR: Service 'app' failed to build : Build failed
 wslでwindowsの中に入ることで実行できる。
 
 ### docker立ち上がりました！！
+
+## appコンテナの中に入る
+
+```
+docker-compose exec app bash
+```
+入れた。
+
+いろいろ設定する。[webERP](https://github.com/CoopTechOrg/WebERP)  
+Cドライブでやって時より断然軽い！！最強！！
+
+### 第3のエラー
+```
+SQLSTATE[HY000] [2002] Connection refused
+(SQL: select * from information_schema.tables where table_schema = db_name and table_name = migrations and table_type = 'BASE TABLE')
+```
+
+```
+php artisan migrate
+```
+で出たエラー。
+laravelの.envとdockerの.envがあってないぽい？  
+dockerのポート番号を3300に変えたしなぁ  
+
+laravelの.envをいじろうとすると…
+
+### 第4のエラー
+十分な権限がありません。と言われました…。
