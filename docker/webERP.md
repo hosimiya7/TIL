@@ -174,5 +174,38 @@ idコマンドの実行
 $ id
 uid=1000(hosimiya) gid=1000(hosimiya) groups=1000(hosimiya)…
 ```
+いろいろファイル作成
 
-uidとgidを追加したDockerfileを作成
+.env(環境変数設定)
+```
+USERNAME=user
+GROUPNAME=user
+
+UID=1000
+GID=1000
+```
+
+docker-compose(args以下追加)
+```  
+app:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+      args:
+          USERNAME: ${USERNAME}
+          GROUPNAME: ${GROUPNAME}
+          UID: ${UID}
+          GID: ${GID}`
+
+```
+
+dockerfile(appのやつ)[参考](https://qiita.com/Spritaro/items/602118d946a4383bd2bb)
+```
+RUN groupadd -g $GID $GROUPNAME && \
+    useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
+```
+
+そしてエラー
+```
+failed to solve: rpc error: code = Unknown desc = executor failed running [/bin/sh -c apt-get update &&     curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&     apt-get -y install     nodejs    git     zip     unzip     vim     && docker-php-ext-install pdo_mysql bcmath     groupadd -g $GID $GROUPNAME &&     useradd -m -s /bin/bash -u $UID -g $GID $USERNAME]: exit code: 1
+```
