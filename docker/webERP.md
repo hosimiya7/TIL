@@ -207,5 +207,8 @@ RUN groupadd -g $GID $GROUPNAME && \
 
 そしてエラー
 ```
+[weberp_app stage-0 4/5] RUN apt-get update &&     curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&     apt-get -y install 
+
+
 failed to solve: rpc error: code = Unknown desc = executor failed running [/bin/sh -c apt-get update &&     curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&     apt-get -y install     nodejs    git     zip     unzip     vim     && docker-php-ext-install pdo_mysql bcmath     groupadd -g $GID $GROUPNAME &&     useradd -m -s /bin/bash -u $UID -g $GID $USERNAME]: exit code: 1
 ```
