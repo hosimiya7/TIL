@@ -156,7 +156,7 @@ dockerの想定しているuser権限(root)とwslのuser権限(hosimiya)が違�
 
 wsl  
 ![image](https://user-images.githubusercontent.com/84951254/144361467-96ac52a6-02a9-409b-aa57-6b840e3d6f6a.png)  
-dockerのコンテナ内
+dockerのコンテナ内  
 ![image](https://user-images.githubusercontent.com/84951254/144361923-056caeef-c879-4ca7-800b-37c6e9b4a7ab.png)
 
 
