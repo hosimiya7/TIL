@@ -73,4 +73,43 @@ MySQLを使ってたらデータが溜まる的な感じかな？
 ~~タスクマネージャーからタスクを止めます。~~(これはダメでした。)  
 .envのポート番号を変更します。  
 
-いけた…！？
+いけた…！
+
+
+## Cドライブ下でやってました。
+通りで重たいわけです。ダメでした。  
+wslで動かします　[使い方](https://github.com/hosimiya7/TIL/blob/main/docker/howToUse.md)  
+
+### 第一のエラー
+```
+WARNING: The DB_PORT variable is not set. Defaulting to a blank string.
+WARNING: The DB_NAME variable is not set. Defaulting to a blank string.
+WARNING: The DB_USER variable is not set. Defaulting to a blank string.
+WARNING: The DB_PASSWORD variable is not set. Defaulting to a blank string.
+WARNING: The WEB_PORT variable is not set. Defaulting to a blank string.
+WARNING: The DB_ROOT_PASSWORD variable is not set. Defaulting to a blank string.
+ERROR: The Compose file '.\docker-compose.yml' is invalid because:
+services.db.ports contains an invalid type, it should be a number, or an object
+services.web.ports contains an invalid type, it should be a number, or an object
+```
+
+いろんなものがセットされてないよ～とのこと。
+
+.envを作っていなかった。  
+.env.exampleから複製し、ポート番号を8001と3300に変更。
+
+### 第2のエラー
+```
+unable to prepare context: path "\\\\?\\\\\\wsl$\\Ubuntu-20.04\\home\\hosimiya\\dev\\webERP" not found
+ERROR: Service 'app' failed to build : Build failed
+```
+
+パスがないよ～、だからappが立ち上げられないよ～って言われてる。
+パスをどうにかしないと…  
+
+ネットワークディレクトリ(\\)はwindouwにしかないし、ターミナル(？)でも対応してないものが多い  
+つまりgit bashだと表示できない
+
+wslでwindowsの中に入ることで実行できる。
+
+### docker立ち上がりました！！
