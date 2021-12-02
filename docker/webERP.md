@@ -137,6 +137,8 @@ php artisan migrate
 laravelの.envとdockerの.envがあってないぽい？  
 dockerのポート番号を3300に変えたしなぁ  
 
+[これっぽい](https://qiita.com/isaatsu0131/items/50f8dca389b60a1fd5b5)
+
 laravelの.envをいじろうとすると…
 
 ### 第4のエラー
