@@ -149,5 +149,14 @@ laravelの.envをいじろうとすると…
 ![image](https://user-images.githubusercontent.com/84951254/144355909-d900834c-8251-4ec9-bbad-6f1b6df2b463.png)  
 
 
-https://zenn.dev/rotelstift/articles/docker-for-windows-permission
-https://futureys.tokyo/how-permission-should-be-set-for-developing-inside-a-container-using-wsl-2
+[参考:Docker for WindowsとWSLを併用するときのパーミッションとファイルユーザ](https://zenn.dev/rotelstift/articles/docker-for-windows-permission)  
+[参考:【Docker】 WSL 2 を利用したコンテナー内開発で権限をどう設定するべきか](https://futureys.tokyo/how-permission-should-be-set-for-developing-inside-a-container-using-wsl-2)  
+
+dockerの想定しているuser権限(root)とwslのuser権限(hosimiya)が違うために権限がないといわれていそう。
+
+wsl  
+![image](https://user-images.githubusercontent.com/84951254/144361467-96ac52a6-02a9-409b-aa57-6b840e3d6f6a.png)  
+dockerのコンテナ内
+![image](https://user-images.githubusercontent.com/84951254/144361923-056caeef-c879-4ca7-800b-37c6e9b4a7ab.png)
+
+
