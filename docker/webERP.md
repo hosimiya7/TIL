@@ -150,3 +150,4 @@ laravelの.envをいじろうとすると…
 
 
 https://zenn.dev/rotelstift/articles/docker-for-windows-permission
+https://futureys.tokyo/how-permission-should-be-set-for-developing-inside-a-container-using-wsl-2
