@@ -159,4 +159,10 @@ wsl
 dockerのコンテナ内  
 ![image](https://user-images.githubusercontent.com/84951254/144361923-056caeef-c879-4ca7-800b-37c6e9b4a7ab.png)
 
+やはりな…
 
+#### user権限を一致させたい
+
+* dockerをwslに寄せる  
+* wslをdockerに寄せる  
+* 一般userでも使えるようにする…？  
