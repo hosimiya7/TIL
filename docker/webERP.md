@@ -168,3 +168,11 @@ dockerのコンテナ内
 * 一般userでも使えるようにする…？  
 
 https://qiita.com/Spritaro/items/602118d946a4383bd2bb
+
+idコマンドの実行
+```
+$ id
+uid=1000(hosimiya) gid=1000(hosimiya) groups=1000(hosimiya)…
+```
+
+uidとgidを追加したDockerfileを作成
