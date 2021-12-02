@@ -141,3 +141,7 @@ laravelの.envをいじろうとすると…
 
 ### 第4のエラー
 十分な権限がありません。と言われました…。
+
+![image](https://user-images.githubusercontent.com/84951254/144355953-a1f81306-aa13-4ff5-b5b4-989261f9a8c2.png)
+
+![image](https://user-images.githubusercontent.com/84951254/144355909-d900834c-8251-4ec9-bbad-6f1b6df2b463.png)
