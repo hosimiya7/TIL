@@ -1,4 +1,4 @@
-# 星宮とdockerの二日間戦争。(webERPのdockerのwindows動作確認)
+# webERPのdockerのwindows動作確認
 [webERP](https://github.com/CoopTechOrg/WebERP)のdocker動作確認した
 
 ## Build & Up
