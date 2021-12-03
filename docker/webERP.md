@@ -1,4 +1,4 @@
-# webERPのdockerのwindows動作確認
+# 星宮とdockerの二日間戦争。(webERPのdockerのwindows動作確認)
 [webERP](https://github.com/CoopTechOrg/WebERP)のdocker動作確認した
 
 ## Build & Up
@@ -282,7 +282,8 @@ WORKDIR /app
 
 root権限のあるうちに/appの権限を777にすることで一応解決はした。  
 その後、ユーザーを変更。  
-wsl側でも保存削除ができるようになった。やったぜ。  
+wsl側でも保存削除ができるようになった。やったぜ。 
+これで最初のポート番号も直せる。
 
 ##### 悩み
 でも、もっといいやり方ないのかな…  
