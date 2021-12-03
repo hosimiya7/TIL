@@ -230,8 +230,8 @@ ARG USERNAME
 以前作ったやつは権限がrootにあるので、新しく作った権限でsrcを作り直す。
 
 ### 作り直したけどsrcを変更できない
-一般ユーザーなので、権限を追加する。
-パスワードはなしでいい設定。
+一般ユーザーなので、権限を追加する。  
+パスワードはなしでいい設定。  
 ```
 RUN useradd -m -s /bin/bash -u $UID -g $GID -G sudo $USERNAME
 RUN echo "$USERNAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -240,17 +240,14 @@ idコマンドで確認
 ```
 uid=1000(user) gid=1000(user) groups=1000(user),27(sudo)
 ```
-権限グループ追加された。
-やったぜ！！
+権限グループ追加された。  
+やったぜ！！  
 
-でも…
-
-#### できない！！！
 html以下にディレクトリつーくろ！！
 ```
 mkdir: cannot create directory 'public': Permission denied
 ```
-
+#### できない！！！
 権限がないって言ってる！！！！！！なんで！！！！
 ```
 user@510a6eda629d:/var/www/html$ ls -la
@@ -263,4 +260,32 @@ drwxr-xr-x 3 root root 4096 Dec 28  2019 ..
 ここって変えられるの…？？
 
 #### 解決策(仮)
+元がrootで作られているため新規作成したユーザーに権限がなかった。  
+ディレクトリ側の権限を変更する。  
+新しく/appを作成し、その権限を777することでmkdirできるようにする。  
 
+```
+WORKDIR /
+
+RUN mkdir /app
+
+RUN chmod -R 777 /app
+
+RUN groupadd -g $GID $GROUPNAME
+RUN useradd -m -s /bin/bash -u $UID -g $GID -G sudo $USERNAME
+RUN echo $USERNAME:passwd | chpasswd
+USER $USERNAME
+
+WORKDIR /app
+
+```
+
+root権限のあるうちに/appの権限を777にすることで一応解決はした。  
+その後、ユーザーを変更。  
+wsl側でも保存削除ができるようになった。やったぜ。  
+
+##### 悩み
+でも、もっといいやり方ないのかな…
+/var/www/htmlのroot権限を変えたり、新規作成したuser側にrootで作られたファイルをどうこうする権限を追加したりできないものか。
+
+以上、windowsでのdocker動作確認でした。
