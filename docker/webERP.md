@@ -200,18 +200,67 @@ app:
 ```
 
 dockerfile(appのやつ)[参考](https://qiita.com/Spritaro/items/602118d946a4383bd2bb)
+RUNコマンドを細かく分けないとどこでエラーが出てるかわからない。
 ```
-RUN groupadd -g $GID $GROUPNAME && \
-    useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
+RUN groupadd -g $GID $GROUPNAME
+RUN useradd -m -s /bin/bash -u $UID -g $GID $USERNAME
 ```
 
 そしてエラー
 ```
- => ERROR [weberp_app stage-0 4/5] RUN apt-get update &&     curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&     apt-get -y install     27.8s 
+ => ERROR [weberp_app stage-0 5/7] RUN groupadd -g $GID $GROUPNAME &&                                                                                 0.5s 
 ------
- > [weberp_app stage-0 4/5] RUN apt-get update &&     curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&     apt-get -y install     nodejs    git     zip     unzip     vim     && docker-php-ext-install pdo_mysql bcmath     groupadd -g $GID $GROUPNAME &&     useradd -m -s /bin/bash -u $UID -g $GID $USERNAME:
-
-failed to solve: rpc error: code = Unknown desc = executor failed running [/bin/sh -c apt-get update &&     curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&     apt-get -y install     nodejs    git     zip     unzip     vim     && docker-php-ext-install pdo_mysql bcmath     groupadd -g $GID $GROUPNAME &&     useradd -m -s /bin/bash -u $UID -g $GID $USERNAME]: exit code: 1
+ > [weberp_app stage-0 5/7] RUN groupadd -g $GID $GROUPNAME &&:
+#17 0.442 /bin/sh: 1: Syntax error: end of file unexpected
+------
+failed to solve: rpc error: code = Unknown desc = executor failed running [/bin/sh -c groupadd -g $GID $GROUPNAME &&]: exit code: 2
 ```
-rpcエラー…?
-リモートプロシージャコールのエラー…というものらしい。
+#### 解決法
+
+以下をdockerfileに追加
+```
+ARG GID
+ARG UID
+ARG GROUPNAME
+ARG USERNAME
+```
+変数はARGで受け取る。→解決
+
+#### srcの削除
+以前作ったやつは権限がrootにあるので、新しく作った権限でsrcを作り直す。
+
+### 作り直したけどsrcを変更できない
+一般ユーザーなので、権限を追加する。
+パスワードはなしでいい設定。
+```
+RUN useradd -m -s /bin/bash -u $UID -g $GID -G sudo $USERNAME
+RUN echo "$USERNAME   ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+```
+idコマンドで確認
+```
+uid=1000(user) gid=1000(user) groups=1000(user),27(sudo)
+```
+権限グループ追加された。
+やったぜ！！
+
+でも…
+
+#### できない！！！
+html以下にディレクトリつーくろ！！
+```
+mkdir: cannot create directory 'public': Permission denied
+```
+
+権限がないって言ってる！！！！！！なんで！！！！
+```
+user@510a6eda629d:/var/www/html$ ls -la
+total 8
+drwxr-xr-x 2 root root 4096 Dec  3 02:53 .
+drwxr-xr-x 3 root root 4096 Dec 28  2019 ..
+```
+多分、根本の設定がrootになってるからだ！！
+
+ここって変えられるの…？？
+
+#### 解決策(仮)
+
