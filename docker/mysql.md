@@ -55,7 +55,7 @@ echo "GRANT ALL ON *.* TO '"$DB_USER"'@'%' ;" | "${mysql[@]}"
 echo 'FLUSH PRIVILEGES ;' | "${mysql[@]}"
 ```
 ![image](https://user-images.githubusercontent.com/84951254/145712354-fc85ecd6-0bc0-49a3-824e-428e5d9e4833.png)
-https://obel.hatenablog.jp/entry/20201218/1608231600
+https://obel.hatenablog.jp/entry/20201218/1608231600  
 
 権限はもらえた。
 ```
