@@ -28,7 +28,7 @@ DB_ROOT_PASSWORD=
 
 ## dockerのmasql内に入る
 ```
-docker exec -it mySQLのコンテナ名　bash
+docker-compose exec mySQLのコンテナ名 bash
 ```
 
 ※コンテナ名に関しては
@@ -37,3 +37,12 @@ docker ps
 ```
 で確認可能。  
 今回は`db`のはず…。動かない場合は確認してみてください。
+
+## sqlへアクセスする。
+```
+mysql -u (user名) -p
+```
+この後パスワード入力する。
+
+**アクセスできた！！**
+
