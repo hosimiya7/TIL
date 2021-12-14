@@ -58,10 +58,7 @@ echo 'FLUSH PRIVILEGES ;' | "${mysql[@]}"
 https://obel.hatenablog.jp/entry/20201218/1608231600  
 
 権限はもらえた。
-```
-docker network create network名
-```
-でネットワーク立ち上げてbuildする。
 
-## 無理！！！！！！！！
+
+## でも無理！！！！！！！！
 諦めて外部DBを使うことに。いつかリベンジしたい…
